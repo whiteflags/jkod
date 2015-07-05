@@ -15,18 +15,19 @@ namespace jkod
         {
             StringBuilder strbuffer = new StringBuilder();
             byte[] data = null;
-            try
-            {
-                data = File.ReadAllBytes(file);  
-            }
-            catch(IOException)
-            {
-            }
+            //try
+            //{
+            //    data = File.ReadAllBytes(file);  
+            //}
+            //catch(IOException)
+            //{
+            //}
 
             UInt32 address = 0;
             UInt32 bytesPerLine = 16;
             int index = 0;
 
+            data = File.ReadAllBytes(file);
             while (index < data.Length)
             {
                 if (index % bytesPerLine == 0)
@@ -36,11 +37,18 @@ namespace jkod
                     address += bytesPerLine;
                 }
 
-                string entry = Convert.ToString((short)(data[index] << 8 | data[index + 1]), 8);
-                strbuffer.AppendFormat("{0,7:}", entry);
-                index += 2;
+                UInt16 entry = (UInt16)(data[index] << 8);
+                ++index;
+                if (index < data.Length)
+                {
+                    entry |= data[index];
+                }
+                strbuffer.AppendFormat("{0,7}", Convert.ToString(entry, 8).PadLeft(6, '0'));
+                ++index;
             }
             strbuffer.AppendLine();
+            // The top line "\n" is unnecessary.
+            strbuffer.Remove(0, 1);
             
             return strbuffer.ToString();
         }
