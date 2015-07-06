@@ -30,5 +30,16 @@ namespace DumperTest
             StringAssert.Equals(result, expected);
             File.Delete(testFileName);
         }
+
+        [TestMethod]
+        public void TestDumpMethodHexOutput()
+        {
+            const string content = "a b c d e f g h ";
+            const string expected = "000000000:  6120 6220 6320 6420 6520 6620 6720 6820\n";
+            File.WriteAllText(testFileName, content);
+            string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.HEXA);
+            StringAssert.Equals(result, expected);
+            File.Delete(testFileName);
+        }
     }
 }

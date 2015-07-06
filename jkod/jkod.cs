@@ -22,7 +22,7 @@ namespace jkod
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                string output = Dumper.dump(openFileDialog1.FileName);
+                string output = Dumper.dump(openFileDialog1.FileName, cbxBaseList.SelectedIndex);
                 txtOutput.Text = output;
             }
         }
