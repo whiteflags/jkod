@@ -5,7 +5,7 @@ using System.Text;
 
 namespace jkod
 {
-    class Dumper
+    public class Dumper
     {
         /* Dump function outputs data as octal shorts (by default).
          * @param - file - File to open and dump.

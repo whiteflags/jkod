@@ -14,7 +14,7 @@ namespace jkod
 
         public void jkod_Load(object sender, EventArgs e)
         {
-
+            cbxBaseList.SelectedIndex = 0;
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
