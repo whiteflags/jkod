@@ -30,14 +30,20 @@ namespace jkod
             if (baseSelected == (int)BaseOption.OCTAL)
             {
                 format = "{0,7}";
-                padding = 6;
+                padding = 6; // determined by the value 377377
                 radix = 8;
             }
             else if (baseSelected == (int)BaseOption.HEXA)
             {
                 format = "{0,6}";
-                padding = 4;
+                padding = 4; // determined by the value 0xFFFF
                 radix = 16;
+            }
+            else if (baseSelected == (int)BaseOption.UDECIMAL)
+            {
+                format = "{0,6}";
+                padding = 5; // determined by the value 65535
+                radix = 10;
             }
 
             UInt32 address = 0;
@@ -61,8 +67,7 @@ namespace jkod
                     entry |= data[index];
                 }
                 ++index;
-                strbuffer.AppendFormat(format, Convert.ToString(entry, radix).PadLeft(padding, '0'));
-                
+                strbuffer.AppendFormat(format, Convert.ToString(entry, radix).PadLeft(padding, '0'));   
             }
             strbuffer.AppendLine();
             // The top line "\n" is unnecessary.
