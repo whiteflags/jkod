@@ -91,7 +91,7 @@
             this.cbxBaseList.Items.AddRange(new object[] {
             "Octal (base 8)",
             "Hexadecimal (base 16)",
-            "Unsigned Decimal (base 10)"});
+            "Signed Decimal (base 10)"});
             this.cbxBaseList.Location = new System.Drawing.Point(9, 43);
             this.cbxBaseList.Name = "cbxBaseList";
             this.cbxBaseList.Size = new System.Drawing.Size(179, 21);

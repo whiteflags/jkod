@@ -48,7 +48,7 @@ namespace DumperTest
             const string content = "a b c d e f g h ";
             const string expected = "00000000:  24864 25120 25376 25632 25888 26144 26400 26656";
             File.WriteAllText(testFileName, content);
-            string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.UDECIMAL);
+            string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.DECIMAL);
             StringAssert.Contains(result, expected);
             File.Delete(testFileName);
         }
@@ -57,7 +57,7 @@ namespace DumperTest
         public void TestDumpMethodOneByteColOutput()
         {
             const string content = "a b c d e f g h ";
-            const string expected = "00000000:  141 040 142 040 143 040 144 040 145 040 146 040 147 040 148 040";
+            const string expected = "00000000:  141 040 142 040 143 040 144 040 145 040 146 040 147 040 150 040";
             File.WriteAllText(testFileName, content);
             string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.OCTAL, 1);
             StringAssert.Contains(result, expected);

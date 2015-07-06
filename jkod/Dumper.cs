@@ -7,7 +7,7 @@ namespace jkod
 {
     public class Dumper
     {
-        public enum BaseOption : int { OCTAL, HEXA, UDECIMAL };
+        public enum BaseOption : int { OCTAL, HEXA, DECIMAL };
 
         /* Dump function outputs data as octal shorts (by default).
          * @param - file - File to open and dump.
@@ -23,29 +23,7 @@ namespace jkod
             //catch(IOException)
             //{
             //}
-            string format = null;
-            int padding = 0;
-            int radix = 0;
-
-            if (baseSelected == (int)BaseOption.OCTAL)
-            {
-                format = "{0,7}";
-                padding = 6; // determined by the value 377377
-                radix = 8;
-            }
-            else if (baseSelected == (int)BaseOption.HEXA)
-            {
-                format = "{0,5}";
-                padding = 4; // determined by the value 0xFFFF
-                radix = 16;
-            }
-            else if (baseSelected == (int)BaseOption.UDECIMAL)
-            {
-                format = "{0,6}";
-                padding = 5; // determined by the value 65535
-                radix = 10;
-            }
-
+           
             UInt32 address = 0;
             UInt32 bytesPerLine = 16;
             int index = 0;
@@ -60,20 +38,57 @@ namespace jkod
                     address += bytesPerLine;
                 }
 
-                UInt16 entry = (UInt16)(data[index] << 8);
-                ++index;
-                if (index < data.Length)
+                Int64 entry = (Int64)data[index];
+                for (uint i = 1; index + i < data.Length && i < colWidth; ++i)
                 {
-                    entry |= data[index];
+                    entry = entry << 8 | data[index + i];    
                 }
-                ++index;
-                strbuffer.AppendFormat(format, Convert.ToString(entry, radix).PadLeft(padding, '0'));   
+                index += colWidth;
+                AddToDump(ref strbuffer, baseSelected, colWidth, entry);
             }
             strbuffer.AppendLine();
             // The top line "\n" is unnecessary.
             strbuffer.Remove(0, 1);
             
             return strbuffer.ToString();
+        }
+
+        private static void AddToDump(ref StringBuilder strbuffer, int baseSelected, int colWidth, Int64 entry)
+        {
+            string format = null;
+            int padding = 0;
+            int radix = 0;
+            int columnMaximum = (1 << (colWidth * 8)) - 1;
+            int maxDigitsInColumn = 0;
+
+            if (baseSelected == (int)BaseOption.OCTAL)
+            {
+                maxDigitsInColumn = DigitsUsedInBase(columnMaximum, 8);
+                format = String.Format("{0}0,{1:D}{2}", '{', maxDigitsInColumn + 1, '}');
+                padding = maxDigitsInColumn;
+                radix = 8;
+            }
+            else if (baseSelected == (int)BaseOption.HEXA)
+            {
+                maxDigitsInColumn = DigitsUsedInBase(columnMaximum, 16);
+                format = String.Format("{0}0,{1:D}{2}", '{', maxDigitsInColumn + 1, '}');
+                padding = maxDigitsInColumn; 
+                radix = 16;
+            }
+            else if (baseSelected == (int)BaseOption.DECIMAL)
+            {
+                maxDigitsInColumn = DigitsUsedInBase(columnMaximum, 10);
+                format = String.Format("{0}0,{1:D}{2}", '{', maxDigitsInColumn + 1, '}');
+                padding = maxDigitsInColumn;
+                radix = 10;
+            }
+
+            strbuffer.AppendFormat(format, Convert.ToString(entry, radix).PadLeft(padding, '0'));
+        }
+
+        private static int DigitsUsedInBase(int num, int radix)
+        {
+            return (int)Math.Ceiling(Math.Log10(num) / Math.Log10(radix));
         }
     }
 }
