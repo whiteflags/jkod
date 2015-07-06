@@ -7,8 +7,8 @@ namespace jkod
 {
     public class Dumper
     {
-
         public enum BaseOption : int { OCTAL, HEXA, UDECIMAL };
+
         /* Dump function outputs data as octal shorts (by default).
          * @param - file - File to open and dump.
          * @returns - string - the string containing the line-by-line dump.
@@ -32,6 +32,12 @@ namespace jkod
                 format = "{0,7}";
                 padding = 6;
                 radix = 8;
+            }
+            else if (baseSelected == (int)BaseOption.HEXA)
+            {
+                format = "{0,6}";
+                padding = 4;
+                radix = 16;
             }
 
             UInt32 address = 0;
