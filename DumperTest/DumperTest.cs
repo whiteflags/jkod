@@ -41,5 +41,16 @@ namespace DumperTest
             StringAssert.Equals(result, expected);
             File.Delete(testFileName);
         }
+
+        [TestMethod]
+        public void TestDumpMethodUDecOutput()
+        {
+            const string content = "a b c d e f g h ";
+            const string expected = "000000000:  24864 25120 25376 25632 25888 26144 26400 26656\n";
+            File.WriteAllText(testFileName, content);
+            string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.UDECIMAL);
+            StringAssert.Equals(result, expected);
+            File.Delete(testFileName);
+        }
     }
 }
