@@ -13,7 +13,7 @@ namespace jkod
          * @param - file - File to open and dump.
          * @returns - string - the string containing the line-by-line dump.
          */
-        public static string dump(string file, int baseSelected = (int)BaseOption.OCTAL)
+        public static string dump(string file, int baseSelected = (int)BaseOption.OCTAL, int colWidth = 2)
         {
             StringBuilder strbuffer = new StringBuilder();
             //try
@@ -35,7 +35,7 @@ namespace jkod
             }
             else if (baseSelected == (int)BaseOption.HEXA)
             {
-                format = "{0,6}";
+                format = "{0,5}";
                 padding = 4; // determined by the value 0xFFFF
                 radix = 16;
             }

@@ -108,7 +108,6 @@
             // 
             // cbxColumnWidth
             // 
-            this.cbxColumnWidth.FormattingEnabled = true;
             this.cbxColumnWidth.Items.AddRange(new object[] {
             "1",
             "2",
