@@ -11,6 +11,9 @@ namespace jkod
 
         /* Dump function outputs data as octal shorts (by default).
          * @param - file - File to open and dump.
+         * @param - baseSelected - the base the user has indicated the dump should be in.
+         * @param - colWidth - the width of each entry in the table.
+         * @param - bytesPerLine - determines the width of the whole table.
          * @returns - string - the string containing the line-by-line dump.
          */
         public static string dump(string file, int baseSelected = (int)BaseOption.OCTAL, 
