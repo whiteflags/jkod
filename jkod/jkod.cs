@@ -24,7 +24,8 @@ namespace jkod
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                string output = Dumper.dump(openFileDialog1.FileName, cbxBaseList.SelectedIndex);
+                int colWidth = Convert.ToInt32(cbxColumnWidth.SelectedItem);
+                string output = Dumper.dump(openFileDialog1.FileName, cbxBaseList.SelectedIndex, colWidth);
                 txtOutput.Text = output;
             }
         }
