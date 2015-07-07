@@ -43,10 +43,10 @@ namespace DumperTest
         }
 
         [TestMethod]
-        public void TestDumpMethodUDecOutput()
+        public void TestDumpMethodDecOutput()
         {
             const string content = "a b c d e f g h ";
-            const string expected = "00000000:  24864 25120 25376 25632 25888 26144 26400 26656";
+            const string expected = "00000000:   24864  25120  25376  25632  25888  26144  26400  26656";
             File.WriteAllText(testFileName, content);
             string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.DECIMAL);
             StringAssert.Contains(result, expected);

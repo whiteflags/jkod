@@ -63,20 +63,22 @@ namespace jkod
             if (baseSelected == (int)BaseOption.OCTAL)
             {
                 maxDigitsInColumn = DigitsUsedInBase(columnMaximum, 8);
+                format = String.Format("{0}0,{1:D}{2}", '{', maxDigitsInColumn + 1, '}');
                 radix = 8;
             }
             else if (baseSelected == (int)BaseOption.HEXA)
             {
                 maxDigitsInColumn = DigitsUsedInBase(columnMaximum, 16);
+                format = String.Format("{0}0,{1:D}{2}", '{', maxDigitsInColumn + 1, '}');
                 radix = 16;
             }
             else if (baseSelected == (int)BaseOption.DECIMAL)
             {
                 maxDigitsInColumn = DigitsUsedInBase(columnMaximum, 10);
+                format = String.Format("{0}0,{1:D}{2}", '{', maxDigitsInColumn + 2, '}');
                 radix = 10;
             }
 
-            format = String.Format("{0}0,{1:D}{2}", '{', maxDigitsInColumn + 1, '}');
             strbuffer.AppendFormat(format, Convert.ToString(entry, radix).PadLeft(maxDigitsInColumn, '0'));
         }
 
