@@ -24,6 +24,8 @@ namespace jkod
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
+                string suggestedSaveFileName = openFileDialog1.FileName + "." + saveFileDialog1.DefaultExt;
+                saveFileDialog1.FileName = suggestedSaveFileName;
                 OpenFileOrDie();
             }
         }
@@ -50,6 +52,27 @@ namespace jkod
             catch (UnauthorizedAccessException)
             {
                 MessageBox.Show("You do not have the necessary permissions to open this!");
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult result = saveFileDialog1.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    File.WriteAllText(saveFileDialog1.FileName, txtOutput.Text);
+                }
+
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("The file could not be saved as directed!");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("You do not have the necessary permissions to save here!");
             }
         }
     }
