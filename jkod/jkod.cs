@@ -19,22 +19,26 @@ namespace jkod
             cbxBytesPerLine.SelectedIndex = 0;
         }
 
+        /* Button should prompt the user for a file and display it with the current output options. */
         private void btnOpen_Click(object sender, EventArgs e)
         {
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                string suggestedSaveFileName = openFileDialog1.FileName + "." + saveFileDialog1.DefaultExt;
-                saveFileDialog1.FileName = suggestedSaveFileName;
                 OpenFileOrDie();
             }
         }
 
+        /* Button should reopen the file with the new output options. */
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             OpenFileOrDie();
         }
 
+        /* OpenFileOrDie:
+         * Helper function that actually opens the file and dumps it, or handles an IO exception
+         * before returning.
+         */
         private void OpenFileOrDie()
         {
             try
@@ -55,10 +59,17 @@ namespace jkod
             }
         }
 
+        /* Button should write a dump file, or handle an exception before returning. 
+         * The default file name is the name of the file opened, plus ".dump"
+         */
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
+                string[] path = openFileDialog1.FileName.Split('\\');
+                string suggestedSaveFileName = path[path.Length - 1] + "." + saveFileDialog1.DefaultExt;
+                saveFileDialog1.FileName = suggestedSaveFileName;
+
                 DialogResult result = saveFileDialog1.ShowDialog();
                 if (result == DialogResult.OK)
                 {

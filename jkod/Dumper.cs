@@ -42,17 +42,24 @@ namespace jkod
                 AddToDump(ref strbuffer, baseSelected, colWidth, entry);
             }
             strbuffer.AppendLine();
-            // The top line "\n" is unnecessary.
-            strbuffer.Remove(0, 1);
+            // The top line "\r\n" is unnecessary.
+            strbuffer.Remove(0, 2);
             
             return strbuffer.ToString();
         }
 
+        /*
+         * AddToDump function takes a table entry and inserts it in the output.
+         * @param - strbuffer - the output container object.
+         * @param - baseSelected - the number system used in the output.
+         * @param - colWidth - the number of bytes of file covered by an entry.
+         * @param - entry - the actual bytes written to the output.
+         */
         private static void AddToDump(ref StringBuilder strbuffer, int baseSelected, uint colWidth, Int64 entry)
         {
             string format = null;
             int radix = 0;
-            Int64 columnMaximum = (Int64)Math.Pow(2, colWidth * 8) - 1;
+            UInt64 columnMaximum = (UInt64)Math.Pow(2, colWidth * 8) - 1;
             int maxDigitsInColumn = 0;
 
             if (baseSelected == (int)BaseOption.OCTAL)
@@ -77,7 +84,13 @@ namespace jkod
             strbuffer.AppendFormat(format, Convert.ToString(entry, radix).PadLeft(maxDigitsInColumn, '0'));
         }
 
-        private static int DigitsUsedInBase(Int64 num, int radix)
+        /* DigitsUsedInBaseFunction calculates the number of digits required to show a value in a 
+         * given number system. Used to format the rows of the output table.
+         * @param - num - the value to determine place value count for.
+         * @param - radix - the number system we are interested in, e.g. 16 (hexadecimal).
+         * @returns - int - the number of digits.
+         */
+        private static int DigitsUsedInBase(UInt64 num, int radix)
         {
             return (int)Math.Ceiling(Math.Log10(num) / Math.Log10(radix));
         }
