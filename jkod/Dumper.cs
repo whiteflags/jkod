@@ -56,37 +56,31 @@ namespace jkod
         private static void AddToDump(ref StringBuilder strbuffer, int baseSelected, int colWidth, Int64 entry)
         {
             string format = null;
-            int padding = 0;
             int radix = 0;
-            int columnMaximum = (1 << (colWidth * 8)) - 1;
+            Int64 columnMaximum = (Int64)Math.Pow(2, colWidth * 8) - 1;
             int maxDigitsInColumn = 0;
 
             if (baseSelected == (int)BaseOption.OCTAL)
             {
                 maxDigitsInColumn = DigitsUsedInBase(columnMaximum, 8);
-                format = String.Format("{0}0,{1:D}{2}", '{', maxDigitsInColumn + 1, '}');
-                padding = maxDigitsInColumn;
                 radix = 8;
             }
             else if (baseSelected == (int)BaseOption.HEXA)
             {
                 maxDigitsInColumn = DigitsUsedInBase(columnMaximum, 16);
-                format = String.Format("{0}0,{1:D}{2}", '{', maxDigitsInColumn + 1, '}');
-                padding = maxDigitsInColumn; 
                 radix = 16;
             }
             else if (baseSelected == (int)BaseOption.DECIMAL)
             {
                 maxDigitsInColumn = DigitsUsedInBase(columnMaximum, 10);
-                format = String.Format("{0}0,{1:D}{2}", '{', maxDigitsInColumn + 1, '}');
-                padding = maxDigitsInColumn;
                 radix = 10;
             }
 
-            strbuffer.AppendFormat(format, Convert.ToString(entry, radix).PadLeft(padding, '0'));
+            format = String.Format("{0}0,{1:D}{2}", '{', maxDigitsInColumn + 1, '}');
+            strbuffer.AppendFormat(format, Convert.ToString(entry, radix).PadLeft(maxDigitsInColumn, '0'));
         }
 
-        private static int DigitsUsedInBase(int num, int radix)
+        private static int DigitsUsedInBase(Int64 num, int radix)
         {
             return (int)Math.Ceiling(Math.Log10(num) / Math.Log10(radix));
         }
