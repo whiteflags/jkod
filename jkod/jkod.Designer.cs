@@ -1,6 +1,6 @@
 ﻿namespace jkod
 {
-    partial class jkod
+    partial class jkodForm
     {
         /// <summary>
         /// Required designer variable.
@@ -169,7 +169,7 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // jkod
+            // jkodForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -178,7 +178,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.txtOutput);
-            this.Name = "jkod";
+            this.Name = "jkodForm";
             this.Text = "jkod";
             this.Load += new System.EventHandler(this.jkod_Load);
             this.groupBox1.ResumeLayout(false);

@@ -5,9 +5,9 @@ using System.Windows.Forms;
 
 namespace jkod
 {
-    public partial class jkod : Form
+    public partial class jkodForm : Form
     {
-        public jkod()
+        public jkodForm()
         {
             InitializeComponent();
         }
