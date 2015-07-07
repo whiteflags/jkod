@@ -42,6 +42,7 @@ The options panel is located underneath the grey text area. The
 program currently offers 3 ways to customize your output.
 
 1.  Base
+    
     This is the number system in which the output will appear. The current 
     choices are signed decimal or base 10, hexadecimal or base 16, and 
     octal or base 8. The default choice is octal.
@@ -51,16 +52,19 @@ program currently offers 3 ways to customize your output.
     digits line up nicely with what you'd expect a nibble's value to be.
 
 2.  Column width
+    
     Column width is the number of bytes per column entry. The default 
     is 2, but you can select all the way up to 8.
 
 3.  Bytes Per Line
+    
     This is the number of bytes that will be on a line. The bytes per line 
     will always be a multiple of the column width. For example, choosing 
     to dump a file as 4-byte hexadecimal integers with 32 bytes per line 
     will result in 8 columns of output.
 
 4.  Refresh
+    
     When you want to see the same file with different output options, 
     click this.
 
@@ -83,7 +87,7 @@ domain.
 
 ## Contact
 
-Joshua Kittrell. <whiteflags99.at.gmail>
+Joshua Kittrell whiteflags99.at.gmail.
 
 This email address is munged on purpose to prevent spam from 
 cluttering my inbox, as futile as it may be for me to try.
