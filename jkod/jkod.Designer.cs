@@ -32,12 +32,12 @@
             this.btnOpen = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbxBytesPerLine = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cbxColumnWidth = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbxBaseList = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cbxColumnWidth = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cbxBytesPerLine = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,6 +51,7 @@
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtOutput.Size = new System.Drawing.Size(723, 328);
             this.txtOutput.TabIndex = 0;
+            this.txtOutput.WordWrap = false;
             // 
             // btnOpen
             // 
@@ -77,6 +78,49 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Options";
             // 
+            // cbxBytesPerLine
+            // 
+            this.cbxBytesPerLine.FormattingEnabled = true;
+            this.cbxBytesPerLine.Items.AddRange(new object[] {
+            "16",
+            "32",
+            "64",
+            "128"});
+            this.cbxBytesPerLine.Location = new System.Drawing.Point(350, 43);
+            this.cbxBytesPerLine.Name = "cbxBytesPerLine";
+            this.cbxBytesPerLine.Size = new System.Drawing.Size(121, 21);
+            this.cbxBytesPerLine.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(347, 27);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(78, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Bytes Per Line:";
+            // 
+            // cbxColumnWidth
+            // 
+            this.cbxColumnWidth.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "4",
+            "8"});
+            this.cbxColumnWidth.Location = new System.Drawing.Point(213, 43);
+            this.cbxColumnWidth.Name = "cbxColumnWidth";
+            this.cbxColumnWidth.Size = new System.Drawing.Size(73, 21);
+            this.cbxColumnWidth.TabIndex = 5;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(210, 27);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(110, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Column Width (bytes):";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -96,49 +140,6 @@
             this.cbxBaseList.Name = "cbxBaseList";
             this.cbxBaseList.Size = new System.Drawing.Size(179, 21);
             this.cbxBaseList.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(210, 27);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(110, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Column Width (bytes):";
-            // 
-            // cbxColumnWidth
-            // 
-            this.cbxColumnWidth.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "4",
-            "8"});
-            this.cbxColumnWidth.Location = new System.Drawing.Point(213, 43);
-            this.cbxColumnWidth.Name = "cbxColumnWidth";
-            this.cbxColumnWidth.Size = new System.Drawing.Size(73, 21);
-            this.cbxColumnWidth.TabIndex = 5;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(347, 27);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(78, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Bytes Per Line:";
-            // 
-            // cbxBytesPerLine
-            // 
-            this.cbxBytesPerLine.FormattingEnabled = true;
-            this.cbxBytesPerLine.Items.AddRange(new object[] {
-            "16",
-            "32",
-            "64",
-            "128"});
-            this.cbxBytesPerLine.Location = new System.Drawing.Point(350, 43);
-            this.cbxBytesPerLine.Name = "cbxBytesPerLine";
-            this.cbxBytesPerLine.Size = new System.Drawing.Size(121, 21);
-            this.cbxBytesPerLine.TabIndex = 7;
             // 
             // jkod
             // 

@@ -24,9 +24,17 @@ namespace jkod
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                int colWidth = Convert.ToInt32(cbxColumnWidth.SelectedItem);
-                txtOutput.Text = Dumper.dump(openFileDialog1.FileName, cbxBaseList.SelectedIndex, colWidth);
+                OpenFileOrDie();
             }
+        }
+
+        private void OpenFileOrDie()
+        {
+            string fileToDump = openFileDialog1.FileName;
+            uint colWidth = Convert.ToUInt32(cbxColumnWidth.SelectedItem);
+            uint bytesPerLine = Convert.ToUInt32(cbxBytesPerLine.SelectedItem);
+            txtOutput.Text = Dumper.dump(fileToDump, cbxBaseList.SelectedIndex,
+                colWidth, bytesPerLine);
         }
     }
 }

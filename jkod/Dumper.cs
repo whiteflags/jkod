@@ -13,7 +13,8 @@ namespace jkod
          * @param - file - File to open and dump.
          * @returns - string - the string containing the line-by-line dump.
          */
-        public static string dump(string file, int baseSelected = (int)BaseOption.OCTAL, int colWidth = 2)
+        public static string dump(string file, int baseSelected = (int)BaseOption.OCTAL, 
+            uint colWidth = 2, uint bytesPerLine = 16)
         {
             StringBuilder strbuffer = new StringBuilder();
             //try
@@ -24,9 +25,8 @@ namespace jkod
             //{
             //}
            
-            UInt32 address = 0;
-            UInt32 bytesPerLine = 16;
-            int index = 0;
+            uint address = 0;
+            uint index = 0;
 
             byte[] data = File.ReadAllBytes(file);
             while (index < data.Length)
@@ -53,7 +53,7 @@ namespace jkod
             return strbuffer.ToString();
         }
 
-        private static void AddToDump(ref StringBuilder strbuffer, int baseSelected, int colWidth, Int64 entry)
+        private static void AddToDump(ref StringBuilder strbuffer, int baseSelected, uint colWidth, Int64 entry)
         {
             string format = null;
             int radix = 0;

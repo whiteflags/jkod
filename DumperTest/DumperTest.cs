@@ -81,9 +81,60 @@ namespace DumperTest
             const string content = "Lorem ipsum dolor sit amit. ";
             string[] expected = {
               "00000000:  461573446255510064560 715653322014433666157"
-            , "00000010:  710403466456410060555 000000000015135027040" };
+            , "00000010:  710403466456410060555 000000000015135027040" 
+            };
             File.WriteAllText(testFileName, content);
             string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.OCTAL, 8);
+            StringAssert.Contains(result, expected[0]);
+            StringAssert.Contains(result, expected[1]);
+            File.Delete(testFileName);
+        }
+
+        [TestMethod]
+        public void TestDumpMethodThirtyTwoByteRow()
+        {
+            const string content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit posuere.";
+            string[] expected = {
+              "00000000:  4c 6f 72 65 6d 20 69 70 73 75 6d 20 64 6f 6c 6f 72 20 73 69 74 20 61 6d 65 74 2c 20 63 6f 6e 73"
+            , "00000020:  65 63 74 65 74 75 72 20 61 64 69 70 69 73 63 69 6e 67 20 65 6c 69 74 20 70 6f 73 75 65 72 65 2e"
+            };
+            File.WriteAllText(testFileName, content);
+            string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.HEXA, 1, 32);
+            StringAssert.Contains(result, expected[0]);
+            StringAssert.Contains(result, expected[1]);
+            File.Delete(testFileName);
+        }
+
+        [TestMethod]
+        public void TestDumpMethodSixtyFourByteRow()
+        {
+            const string content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit posuere.";
+            string expected = "00000000:  4c 6f 72 65 6d 20 69 70 73 75 6d 20 64 6f 6c 6f ";
+            expected +=                  "72 20 73 69 74 20 61 6d 65 74 2c 20 63 6f 6e 73 ";
+            expected +=                  "65 63 74 65 74 75 72 20 61 64 69 70 69 73 63 69 ";
+            expected +=                  "6e 67 20 65 6c 69 74 20 70 6f 73 75 65 72 65 2e";
+            File.WriteAllText(testFileName, content);
+            string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.HEXA, 1, 64);
+            StringAssert.Contains(result, expected);
+            File.Delete(testFileName);
+        }
+
+        [TestMethod]
+        public void TestDumpMethodMaximumSizeRow()
+        {
+            string content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin efficitur posuere orci, ";
+            content += "quis lacinia nisl gravida quis. Etiam vulputate lacus nec amet. ";
+            string[] expected = { 
+                "00000000:  4c 6f 72 65 6d 20 69 70 73 75 6d 20 64 6f 6c 6f 72 20 73 69 74 20 61 6d "
+                + "65 74 2c 20 63 6f 6e 73 65 63 74 65 74 75 72 20 61 64 69 70 69 73 63 69 "
+                + "6e 67 20 65 6c 69 74 2e 20 50 72 6f 69 6e 20 65 66 66 69 63 69 74 75 72 "
+                + "20 70 6f 73 75 65 72 65 20 6f 72 63 69 2c 20 71 75 69 73 20 6c 61 63 69 "
+                + "6e 69 61 20 6e 69 73 6c 20 67 72 61 76 69 64 61 20 71 75 69 73 2e 20 45 "
+                + "74 69 61 6d 20 76 75 6c"
+              , "00000080:  70 75 74 61 74 65 20 6c 61 63 75 73 20 6e 65 63 20 61 6d 65 74 2e"
+            };
+            File.WriteAllText(testFileName, content);
+            string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.HEXA, 1, 128);
             StringAssert.Contains(result, expected[0]);
             StringAssert.Contains(result, expected[1]);
             File.Delete(testFileName);
