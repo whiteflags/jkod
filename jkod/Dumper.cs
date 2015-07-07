@@ -16,15 +16,7 @@ namespace jkod
         public static string dump(string file, int baseSelected = (int)BaseOption.OCTAL, 
             uint colWidth = 2, uint bytesPerLine = 16)
         {
-            StringBuilder strbuffer = new StringBuilder();
-            //try
-            //{
-            //    data = File.ReadAllBytes(file);  
-            //}
-            //catch(IOException)
-            //{
-            //}
-           
+            StringBuilder strbuffer = new StringBuilder();         
             uint address = 0;
             uint index = 0;
 

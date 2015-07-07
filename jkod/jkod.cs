@@ -28,13 +28,29 @@ namespace jkod
             }
         }
 
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            OpenFileOrDie();
+        }
+
         private void OpenFileOrDie()
         {
-            string fileToDump = openFileDialog1.FileName;
-            uint colWidth = Convert.ToUInt32(cbxColumnWidth.SelectedItem);
-            uint bytesPerLine = Convert.ToUInt32(cbxBytesPerLine.SelectedItem);
-            txtOutput.Text = Dumper.dump(fileToDump, cbxBaseList.SelectedIndex,
-                colWidth, bytesPerLine);
+            try
+            {
+                string fileToDump = openFileDialog1.FileName;
+                uint colWidth = Convert.ToUInt32(cbxColumnWidth.SelectedItem);
+                uint bytesPerLine = Convert.ToUInt32(cbxBytesPerLine.SelectedItem);
+                txtOutput.Text = Dumper.dump(fileToDump, cbxBaseList.SelectedIndex,
+                    colWidth, bytesPerLine);
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("The file may be too big, was corrupted, or could not be found!");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("You do not have the necessary permissions to open this!");
+            }
         }
     }
 }

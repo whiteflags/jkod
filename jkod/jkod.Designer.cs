@@ -38,6 +38,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbxBaseList = new System.Windows.Forms.ComboBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,6 +66,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnRefresh);
             this.groupBox1.Controls.Add(this.cbxBytesPerLine);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.cbxColumnWidth);
@@ -141,6 +143,16 @@
             this.cbxBaseList.Size = new System.Drawing.Size(179, 21);
             this.cbxBaseList.TabIndex = 0;
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(516, 41);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 8;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // jkod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -171,6 +183,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cbxColumnWidth;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
 
