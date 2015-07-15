@@ -74,6 +74,10 @@ namespace jkod
             {
                 MessageBox.Show(ex.Message);
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("Please enter a whole number only.");
+            }
         }
 
         /* Button should write a dump file, or handle an exception before returning. 
