@@ -73,10 +73,12 @@ namespace jkod
             catch (AddressSizeException ex)
             {
                 MessageBox.Show(ex.Message);
+                cbxColumnWidth.Focus();
             }
             catch (FormatException)
             {
                 MessageBox.Show("Please enter a whole number only.");
+                cbxColumnWidth.Focus();
             }
         }
 
