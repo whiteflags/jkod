@@ -17,6 +17,7 @@ namespace jkod
             cbxBaseList.SelectedIndex = 0;
             cbxColumnWidth.SelectedIndex = 1;
             cbxBytesPerLine.SelectedIndex = 0;
+            cbxSizeSuffix.SelectedIndex = 0;
         }
 
         /* Button should prompt the user for a file and display it with the current output options. */

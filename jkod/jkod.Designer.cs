@@ -32,6 +32,10 @@
             this.btnOpen = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbxSizeSuffix = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtSkip = new System.Windows.Forms.TextBox();
+            this.chkVerbose = new System.Windows.Forms.CheckBox();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.cbxBytesPerLine = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -61,13 +65,17 @@
             this.btnOpen.Location = new System.Drawing.Point(753, 40);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(117, 28);
-            this.btnOpen.TabIndex = 1;
+            this.btnOpen.TabIndex = 8;
             this.btnOpen.Text = "Open File...";
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cbxSizeSuffix);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.txtSkip);
+            this.groupBox1.Controls.Add(this.chkVerbose);
             this.groupBox1.Controls.Add(this.btnRefresh);
             this.groupBox1.Controls.Add(this.cbxBytesPerLine);
             this.groupBox1.Controls.Add(this.label3);
@@ -77,24 +85,61 @@
             this.groupBox1.Controls.Add(this.cbxBaseList);
             this.groupBox1.Location = new System.Drawing.Point(12, 359);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(703, 81);
-            this.groupBox1.TabIndex = 2;
+            this.groupBox1.Size = new System.Drawing.Size(866, 81);
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Options";
             // 
+            // cbxSizeSuffix
+            // 
+            this.cbxSizeSuffix.FormattingEnabled = true;
+            this.cbxSizeSuffix.Items.AddRange(new object[] {
+            "B",
+            "KB",
+            "MB"});
+            this.cbxSizeSuffix.Location = new System.Drawing.Point(593, 43);
+            this.cbxSizeSuffix.Name = "cbxSizeSuffix";
+            this.cbxSizeSuffix.Size = new System.Drawing.Size(39, 21);
+            this.cbxSizeSuffix.TabIndex = 6;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(484, 27);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Skip Ahead:";
+            // 
+            // txtSkip
+            // 
+            this.txtSkip.Location = new System.Drawing.Point(487, 43);
+            this.txtSkip.Name = "txtSkip";
+            this.txtSkip.Size = new System.Drawing.Size(100, 20);
+            this.txtSkip.TabIndex = 5;
+            // 
+            // chkVerbose
+            // 
+            this.chkVerbose.AutoSize = true;
+            this.chkVerbose.Location = new System.Drawing.Point(724, 47);
+            this.chkVerbose.Name = "chkVerbose";
+            this.chkVerbose.Size = new System.Drawing.Size(118, 17);
+            this.chkVerbose.TabIndex = 7;
+            this.chkVerbose.Text = "Hide duplicate lines";
+            this.chkVerbose.UseVisualStyleBackColor = true;
+            // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(516, 41);
+            this.btnRefresh.Location = new System.Drawing.Point(767, 17);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 23);
-            this.btnRefresh.TabIndex = 8;
+            this.btnRefresh.TabIndex = 10;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // cbxBytesPerLine
             // 
-            this.cbxBytesPerLine.FormattingEnabled = true;
             this.cbxBytesPerLine.Items.AddRange(new object[] {
             "16",
             "32",
@@ -103,7 +148,7 @@
             this.cbxBytesPerLine.Location = new System.Drawing.Point(350, 43);
             this.cbxBytesPerLine.Name = "cbxBytesPerLine";
             this.cbxBytesPerLine.Size = new System.Drawing.Size(121, 21);
-            this.cbxBytesPerLine.TabIndex = 7;
+            this.cbxBytesPerLine.TabIndex = 4;
             // 
             // label3
             // 
@@ -124,7 +169,7 @@
             this.cbxColumnWidth.Location = new System.Drawing.Point(213, 43);
             this.cbxColumnWidth.Name = "cbxColumnWidth";
             this.cbxColumnWidth.Size = new System.Drawing.Size(73, 21);
-            this.cbxColumnWidth.TabIndex = 5;
+            this.cbxColumnWidth.TabIndex = 3;
             // 
             // label2
             // 
@@ -153,7 +198,7 @@
             this.cbxBaseList.Location = new System.Drawing.Point(9, 43);
             this.cbxBaseList.Name = "cbxBaseList";
             this.cbxBaseList.Size = new System.Drawing.Size(179, 21);
-            this.cbxBaseList.TabIndex = 0;
+            this.cbxBaseList.TabIndex = 2;
             // 
             // saveFileDialog1
             // 
@@ -165,7 +210,7 @@
             this.btnSave.Location = new System.Drawing.Point(753, 87);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(117, 28);
-            this.btnSave.TabIndex = 3;
+            this.btnSave.TabIndex = 9;
             this.btnSave.Text = "Save File...";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -204,6 +249,10 @@
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.ComboBox cbxSizeSuffix;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtSkip;
+        private System.Windows.Forms.CheckBox chkVerbose;
     }
 }
 
