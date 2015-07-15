@@ -92,6 +92,7 @@
             // 
             // cbxSizeSuffix
             // 
+            this.cbxSizeSuffix.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxSizeSuffix.FormattingEnabled = true;
             this.cbxSizeSuffix.Items.AddRange(new object[] {
             "B",
@@ -191,6 +192,7 @@
             // 
             // cbxBaseList
             // 
+            this.cbxBaseList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxBaseList.Items.AddRange(new object[] {
             "Octal (base 8)",
             "Hexadecimal (base 16)",

@@ -46,15 +46,20 @@ namespace jkod
             {
                 Dumper d = new Dumper();
                 string fileToDump = openFileDialog1.FileName;
-                d.ColumnWidth = Convert.ToUInt32(cbxColumnWidth.SelectedItem);
-                d.BytesPerLine = Convert.ToUInt32(cbxBytesPerLine.SelectedItem);
-                int value = Convert.ToInt32(cbxBaseList.SelectedIndex);
+                d.ColumnWidth = Convert.ToUInt32(cbxColumnWidth.Text);
+                d.BytesPerLine = Convert.ToUInt32(cbxBytesPerLine.Text);
+                int value = cbxBaseList.SelectedIndex;
+
+                if (d.BytesPerLine % d.ColumnWidth != 0)
+                    throw new AddressSizeException();
+
                 if (value == 0)
                     d.BaseSelected = Dumper.BaseOption.OCTAL;
                 else if (value == 1)
                     d.BaseSelected = Dumper.BaseOption.HEXA;
                 else
                     d.BaseSelected = Dumper.BaseOption.DECIMAL;
+
                 txtOutput.Text = d.dump(fileToDump);
             }
             catch (IOException)
@@ -64,6 +69,10 @@ namespace jkod
             catch (UnauthorizedAccessException)
             {
                 MessageBox.Show("You do not have the necessary permissions to open this!");
+            }
+            catch (AddressSizeException ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
