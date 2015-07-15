@@ -157,5 +157,26 @@ namespace DumperTest
             StringAssert.Contains(result, expected[1]);
             File.Delete(testFileName);
         }
+
+        [TestMethod]
+        public void TestDumpMethodDuplicateLines()
+        {
+            string content = "Lorem ipsum do";
+            string[] expected = { 
+                "00000000:  4c6f 7265 6d20 6970 7375 6d20 646f 0d0a"
+              , "* line duplicated 2 times"
+            };
+            using (StreamWriter swTest = new StreamWriter(testFileName))
+            {
+                for (int i = 0; i < 3; ++i)
+                {
+                    swTest.WriteLine(content);
+                }
+            }
+            d.BaseSelected = Dumper.BaseOption.HEXA;
+            string result = d.dump(testFileName);
+            StringAssert.Contains(result, expected[0]);
+            StringAssert.Contains(result, expected[1]);
+        }
     }
 }
