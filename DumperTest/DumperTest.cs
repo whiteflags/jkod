@@ -12,12 +12,13 @@ namespace DumperTest
         //!! Big file test should exceed the file size limit of the System.IO implementation ~4.2GB
         private const string bigFileName = "C:\\Users\\Josh2\\Music\\bigfile.rar";
         private const string testFileName = "abcdefgh.bin";
+        private Dumper d = new Dumper();
 
         [TestMethod]
         [ExpectedException(typeof(IOException))]
         public void DumpMethodShouldThrowIOException()
         {
-            Dumper.dump(bigFileName);
+            d.dump(bigFileName);
         }
 
         [TestMethod]
@@ -26,7 +27,7 @@ namespace DumperTest
             const string content = "a b c d e f g h ";
             const string expected = "00000000:  060440 061040 061440 062040 062440 063040 063440 064040";
             File.WriteAllText(testFileName, content);
-            string result = Dumper.dump(testFileName);
+            string result = d.dump(testFileName);
             StringAssert.Contains(result, expected);
             File.Delete(testFileName);
         }
@@ -37,7 +38,8 @@ namespace DumperTest
             const string content = "a b c d e f g h ";
             const string expected = "00000000:  6120 6220 6320 6420 6520 6620 6720 6820";
             File.WriteAllText(testFileName, content);
-            string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.HEXA);
+            d.BaseSelected = Dumper.BaseOption.HEXA;
+            string result = d.dump(testFileName);
             StringAssert.Contains(result, expected);
             File.Delete(testFileName);
         }
@@ -48,7 +50,8 @@ namespace DumperTest
             const string content = "a b c d e f g h ";
             const string expected = "00000000:   24864  25120  25376  25632  25888  26144  26400  26656";
             File.WriteAllText(testFileName, content);
-            string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.DECIMAL);
+            d.BaseSelected = Dumper.BaseOption.DECIMAL;
+            string result = d.dump(testFileName);
             StringAssert.Contains(result, expected);
             File.Delete(testFileName);
         }
@@ -59,7 +62,9 @@ namespace DumperTest
             const string content = "a b c d e f g h ";
             const string expected = "00000000:  141 040 142 040 143 040 144 040 145 040 146 040 147 040 150 040";
             File.WriteAllText(testFileName, content);
-            string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.OCTAL, 1);
+            d.BaseSelected = Dumper.BaseOption.OCTAL;
+            d.ColumnWidth = 1;
+            string result = d.dump(testFileName);
             StringAssert.Contains(result, expected);
             File.Delete(testFileName);
         }
@@ -70,7 +75,9 @@ namespace DumperTest
             const string content = "a b c d e f g h ";
             const string expected = "00000000:  14110061040 14310062040 14510063040 14710064040";
             File.WriteAllText(testFileName, content);
-            string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.OCTAL, 4);
+            d.BaseSelected = Dumper.BaseOption.OCTAL;
+            d.ColumnWidth = 4;
+            string result = d.dump(testFileName);
             StringAssert.Contains(result, expected);
             File.Delete(testFileName);
         }
@@ -84,7 +91,9 @@ namespace DumperTest
             , "00000010:  0710403466456410060555 0000000000015135027040" 
             };
             File.WriteAllText(testFileName, content);
-            string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.OCTAL, 8);
+            d.BaseSelected = Dumper.BaseOption.OCTAL;
+            d.ColumnWidth = 8;
+            string result = d.dump(testFileName);
             StringAssert.Contains(result, expected[0]);
             StringAssert.Contains(result, expected[1]);
             File.Delete(testFileName);
@@ -99,7 +108,10 @@ namespace DumperTest
             , "00000020:  65 63 74 65 74 75 72 20 61 64 69 70 69 73 63 69 6e 67 20 65 6c 69 74 20 70 6f 73 75 65 72 65 2e"
             };
             File.WriteAllText(testFileName, content);
-            string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.HEXA, 1, 32);
+            d.BaseSelected = Dumper.BaseOption.HEXA;
+            d.ColumnWidth = 1;
+            d.BytesPerLine = 32;
+            string result = d.dump(testFileName);
             StringAssert.Contains(result, expected[0]);
             StringAssert.Contains(result, expected[1]);
             File.Delete(testFileName);
@@ -114,7 +126,10 @@ namespace DumperTest
             expected +=                  "65 63 74 65 74 75 72 20 61 64 69 70 69 73 63 69 ";
             expected +=                  "6e 67 20 65 6c 69 74 20 70 6f 73 75 65 72 65 2e";
             File.WriteAllText(testFileName, content);
-            string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.HEXA, 1, 64);
+            d.BaseSelected = Dumper.BaseOption.HEXA;
+            d.ColumnWidth = 1;
+            d.BytesPerLine = 64;
+            string result = d.dump(testFileName);
             StringAssert.Contains(result, expected);
             File.Delete(testFileName);
         }
@@ -134,7 +149,10 @@ namespace DumperTest
               , "00000080:  70 75 74 61 74 65 20 6c 61 63 75 73 20 6e 65 63 20 61 6d 65 74 2e"
             };
             File.WriteAllText(testFileName, content);
-            string result = Dumper.dump(testFileName, (int)Dumper.BaseOption.HEXA, 1, 128);
+            d.BaseSelected = Dumper.BaseOption.HEXA;
+            d.ColumnWidth = 1;
+            d.BytesPerLine = 128;
+            string result = d.dump(testFileName);
             StringAssert.Contains(result, expected[0]);
             StringAssert.Contains(result, expected[1]);
             File.Delete(testFileName);

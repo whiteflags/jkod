@@ -9,6 +9,35 @@ namespace jkod
     {
         public enum BaseOption : int { OCTAL, HEXA, DECIMAL };
 
+        private BaseOption _baseSelected;
+        private uint _colWidth;
+        private uint _bytesPerLine;
+
+        public uint BytesPerLine
+        {
+            get { return _bytesPerLine; }
+            set { _bytesPerLine = value; }
+        }
+        
+        public uint ColumnWidth
+        {
+            get { return _colWidth; }
+            set { _colWidth = value; }
+        }
+
+        public BaseOption BaseSelected
+        {
+            get { return _baseSelected; }
+            set { _baseSelected = value; }
+        }
+        
+        public Dumper()
+        {
+            BaseSelected = BaseOption.OCTAL;
+            ColumnWidth = 2;
+            BytesPerLine = 16;
+        }
+
         /* Dump function outputs data as octal shorts (by default).
          * @param - file - File to open and dump.
          * @param - baseSelected - the base the user has indicated the dump should be in.
@@ -16,72 +45,58 @@ namespace jkod
          * @param - bytesPerLine - determines the width of the whole table.
          * @returns - string - the string containing the line-by-line dump.
          */
-        public static string dump(string file, int baseSelected = (int)BaseOption.OCTAL, 
-            uint colWidth = 2, uint bytesPerLine = 16)
+        public string dump(string file)
         {
             StringBuilder strbuffer = new StringBuilder();         
             uint address = 0;
             uint index = 0;
-
-            byte[] data = File.ReadAllBytes(file);
-            while (index < data.Length)
-            {
-                if (index % bytesPerLine == 0)
-                {
-                    strbuffer.AppendLine();
-                    strbuffer.AppendFormat("{0:X8}: ", address);
-                    address += bytesPerLine;
-                }
-
-                Int64 entry = (Int64)data[index];
-                for (uint i = 1; index + i < data.Length && i < colWidth; ++i)
-                {
-                    entry = entry << 8 | data[index + i];    
-                }
-                index += colWidth;
-                AddToDump(ref strbuffer, baseSelected, colWidth, entry);
-            }
-            strbuffer.AppendLine();
-            // The top line "\r\n" is unnecessary.
-            strbuffer.Remove(0, 2);
-            
-            return strbuffer.ToString();
-        }
-
-        /*
-         * AddToDump function takes a table entry and inserts it in the output.
-         * @param - strbuffer - the output container object.
-         * @param - baseSelected - the number system used in the output.
-         * @param - colWidth - the number of bytes of file covered by an entry.
-         * @param - entry - the actual bytes written to the output.
-         */
-        private static void AddToDump(ref StringBuilder strbuffer, int baseSelected, uint colWidth, Int64 entry)
-        {
             string format = null;
             int radix = 0;
-            UInt64 columnMaximum = (UInt64)Math.Pow(2, colWidth * 8) - 1;
+            UInt64 columnMaximum = (UInt64)Math.Pow(2, _colWidth * 8) - 1;
             int maxDigitsInColumn = 0;
 
-            if (baseSelected == (int)BaseOption.OCTAL)
+            if (_baseSelected == BaseOption.OCTAL)
             {
                 maxDigitsInColumn = DigitsUsedInBase(columnMaximum, 8);
                 format = String.Format("{0}0,{1:D}{2}", '{', maxDigitsInColumn + 1, '}');
                 radix = 8;
             }
-            else if (baseSelected == (int)BaseOption.HEXA)
+            else if (_baseSelected == BaseOption.HEXA)
             {
                 maxDigitsInColumn = DigitsUsedInBase(columnMaximum, 16);
                 format = String.Format("{0}0,{1:D}{2}", '{', maxDigitsInColumn + 1, '}');
                 radix = 16;
             }
-            else if (baseSelected == (int)BaseOption.DECIMAL)
+            else if (_baseSelected == BaseOption.DECIMAL)
             {
                 maxDigitsInColumn = DigitsUsedInBase(columnMaximum, 10);
                 format = String.Format("{0}0,{1:D}{2}", '{', maxDigitsInColumn + 2, '}');
                 radix = 10;
             }
 
-            strbuffer.AppendFormat(format, Convert.ToString(entry, radix).PadLeft(maxDigitsInColumn, '0'));
+            byte[] data = File.ReadAllBytes(file);
+            while (index < data.Length)
+            {
+                if (index % _bytesPerLine == 0)
+                {
+                    strbuffer.AppendLine();
+                    strbuffer.AppendFormat("{0:X8}: ", address);
+                    address += _bytesPerLine;
+                }
+
+                Int64 entry = (Int64)data[index];
+                for (uint i = 1; index + i < data.Length && i < _colWidth; ++i)
+                {
+                    entry = entry << 8 | data[index + i];    
+                }
+                index += _colWidth;
+                strbuffer.AppendFormat(format, Convert.ToString(entry, radix).PadLeft(maxDigitsInColumn, '0'));
+            }
+            strbuffer.AppendLine();
+            // The top line "\r\n" is unnecessary.
+            strbuffer.Remove(0, 2);
+            
+            return strbuffer.ToString();
         }
 
         /* DigitsUsedInBaseFunction calculates the number of digits required to show a value in a 

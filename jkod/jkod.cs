@@ -43,11 +43,18 @@ namespace jkod
         {
             try
             {
+                Dumper d = new Dumper();
                 string fileToDump = openFileDialog1.FileName;
-                uint colWidth = Convert.ToUInt32(cbxColumnWidth.SelectedItem);
-                uint bytesPerLine = Convert.ToUInt32(cbxBytesPerLine.SelectedItem);
-                txtOutput.Text = Dumper.dump(fileToDump, cbxBaseList.SelectedIndex,
-                    colWidth, bytesPerLine);
+                d.ColumnWidth = Convert.ToUInt32(cbxColumnWidth.SelectedItem);
+                d.BytesPerLine = Convert.ToUInt32(cbxBytesPerLine.SelectedItem);
+                int value = Convert.ToInt32(cbxBaseList.SelectedIndex);
+                if (value == 0)
+                    d.BaseSelected = Dumper.BaseOption.OCTAL;
+                else if (value == 1)
+                    d.BaseSelected = Dumper.BaseOption.HEXA;
+                else
+                    d.BaseSelected = Dumper.BaseOption.DECIMAL;
+                txtOutput.Text = d.dump(fileToDump);
             }
             catch (IOException)
             {
