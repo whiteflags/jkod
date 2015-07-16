@@ -122,9 +122,9 @@ namespace DumperTest
         {
             const string content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit posuere.";
             string expected = "00000000:  4c 6f 72 65 6d 20 69 70 73 75 6d 20 64 6f 6c 6f ";
-            expected +=                  "72 20 73 69 74 20 61 6d 65 74 2c 20 63 6f 6e 73 ";
-            expected +=                  "65 63 74 65 74 75 72 20 61 64 69 70 69 73 63 69 ";
-            expected +=                  "6e 67 20 65 6c 69 74 20 70 6f 73 75 65 72 65 2e";
+            expected += "72 20 73 69 74 20 61 6d 65 74 2c 20 63 6f 6e 73 ";
+            expected += "65 63 74 65 74 75 72 20 61 64 69 70 69 73 63 69 ";
+            expected += "6e 67 20 65 6c 69 74 20 70 6f 73 75 65 72 65 2e";
             File.WriteAllText(testFileName, content);
             d.BaseSelected = Dumper.BaseOption.HEXA;
             d.ColumnWidth = 1;
@@ -161,10 +161,12 @@ namespace DumperTest
         [TestMethod]
         public void TestDumpMethodDuplicateLines()
         {
+            // Test a file that should be verbose first:
             string content = "Lorem ipsum do";
             string[] expected = { 
                 "00000000:  4c6f 7265 6d20 6970 7375 6d20 646f 0d0a"
               , "* line duplicated 2 times"
+              , "00000030:  6120 6220 6320 6420 6520 6620"
             };
             using (StreamWriter swTest = new StreamWriter(testFileName))
             {
@@ -174,9 +176,49 @@ namespace DumperTest
                 }
             }
             d.BaseSelected = Dumper.BaseOption.HEXA;
+            d.IsVerbose = false;
             string result = d.dump(testFileName);
             StringAssert.Contains(result, expected[0]);
             StringAssert.Contains(result, expected[1]);
+
+            // Now test a file with duplicates only in the middle:
+            using (StreamWriter swTest = File.AppendText(testFileName))
+            {
+                content = "a b c d e f ";
+                swTest.Write(content);
+            }
+            result = d.dump(testFileName);
+            foreach (string expectedValue in expected)
+            {
+                StringAssert.Contains(result, expectedValue);
+            }
+
+            File.Delete(testFileName);
+        }
+
+        [TestMethod]
+        public void TestDumpMethodVerboseOutput()
+        {
+            const string content = "Lorem ipsum do";
+            string[] expected = { 
+                "00000000:  4c6f 7265 6d20 6970 7375 6d20 646f 0d0a"
+              , "00000010:  4c6f 7265 6d20 6970 7375 6d20 646f 0d0a"
+              , "00000020:  4c6f 7265 6d20 6970 7375 6d20 646f 0d0a"
+            };
+            using (StreamWriter swTest = new StreamWriter(testFileName))
+            {
+                for (int i = 0; i < expected.Length; ++i)
+                {
+                    swTest.WriteLine(content);
+                }
+            }
+            d.BaseSelected = Dumper.BaseOption.HEXA;
+            string result = d.dump(testFileName);
+            foreach (string expectedValue in expected)
+            {
+                StringAssert.Contains(result, expectedValue);
+            }
+            File.Delete(testFileName);
         }
     }
 }

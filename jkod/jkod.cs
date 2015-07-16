@@ -46,7 +46,8 @@ namespace jkod
             {
                 Dumper d = new Dumper();
                 string fileToDump = openFileDialog1.FileName;
-                d.ColumnWidth = Convert.ToUInt32(cbxColumnWidth.Text);
+                d.ColumnWidth = Convert.ToInt32(cbxColumnWidth.Text);
+                d.IsVerbose = !chkVerbose.Checked;
                 d.BytesPerLine = Convert.ToUInt32(cbxBytesPerLine.Text);
                 int value = cbxBaseList.SelectedIndex;
 
