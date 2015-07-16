@@ -39,7 +39,7 @@ options into the grey (disabled) text area.
 ### Options Panel
 
 The options panel is located underneath the grey text area. The 
-program currently offers 3 ways to customize your output.
+program currently offers a few ways to customize your output.
 
 1.  Base
     
@@ -62,8 +62,24 @@ program currently offers 3 ways to customize your output.
     will always be a multiple of the column width. For example, choosing 
     to dump a file as 4-byte hexadecimal integers with 32 bytes per line 
     will result in 8 columns of output.
+    
+4.  Skip Ahead
 
-4.  Refresh
+    This option will allow you to skip the beginning of the file by 
+    some user-defined amount. Note that this number should be a 
+    positive integer.
+    
+    In case you want to skip a lot of content, I've tried to make it 
+    easy by including size suffix options. The default choice is bytes
+    (B), but you can also skip by kilobytes (KB) or megabytes (MB).
+    
+5.  Hide duplicate lines
+
+    When this option is checked, the dump will suppress lines that are
+    similar, such as strings of null bytes, so that you don't have to 
+    look at them. This option is on by default.
+
+6.  Refresh
     
     When you want to see the same file with different output options, 
     click this.
