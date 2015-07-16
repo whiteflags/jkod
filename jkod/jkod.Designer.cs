@@ -122,6 +122,8 @@
             // chkVerbose
             // 
             this.chkVerbose.AutoSize = true;
+            this.chkVerbose.Checked = true;
+            this.chkVerbose.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkVerbose.Location = new System.Drawing.Point(724, 47);
             this.chkVerbose.Name = "chkVerbose";
             this.chkVerbose.Size = new System.Drawing.Size(118, 17);
