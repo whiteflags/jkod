@@ -131,6 +131,7 @@
             // 
             // btnRefresh
             // 
+            this.btnRefresh.Enabled = false;
             this.btnRefresh.Location = new System.Drawing.Point(767, 17);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 23);

@@ -27,6 +27,7 @@ namespace jkod
             if (result == DialogResult.OK)
             {
                 OpenFileOrDie();
+                btnRefresh.Enabled = true;
             }
         }
 
@@ -94,6 +95,11 @@ namespace jkod
             {
                 MessageBox.Show("Please enter a whole number only.");
                 cbxColumnWidth.Focus();
+            }
+            catch (IndexOutOfRangeException)
+            {
+                MessageBox.Show("Please enter a whole number only.");
+                txtSkip.Focus();
             }
         }
 
