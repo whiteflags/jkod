@@ -61,7 +61,21 @@ namespace jkod
                 else
                     d.BaseSelected = Dumper.BaseOption.DECIMAL;
 
-                txtOutput.Text = d.dump(fileToDump);
+                int offset = txtSkip.Text.Length > 0? Convert.ToInt32(txtSkip.Text) : 0;
+                switch(cbxSizeSuffix.SelectedIndex)
+                {
+                    case 2:
+                        offset *= 1024 * 1024;
+                        break;
+                    case 1:
+                        offset *= 1024;
+                        break;
+                    case 0:
+                    default:
+                        break;
+                }
+
+                txtOutput.Text = d.dump(fileToDump, offset);
             }
             catch (IOException)
             {

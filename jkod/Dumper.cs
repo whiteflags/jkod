@@ -50,11 +50,11 @@ namespace jkod
          * @param - file - File to open and dump.
          * @returns - string - the string containing the line-by-line dump.
          */
-        public string dump(string file)
+        public string dump(string file, int offset = 0)
         {
             StringBuilder strbuffer = new StringBuilder();
             uint address = 0;
-            int index = 0;
+            int index = offset;
             uint dupeCount = 0;
             string format = null;
             string prevline = null;
@@ -95,7 +95,7 @@ namespace jkod
 
                 // Line contains enough content!
                 // Figure out wether to dump or suppress:
-                if (index % _bytesPerLine == 0)
+                if ((index - offset) % _bytesPerLine == 0)
                 {
                     if (!_isVerbose)
                     {
@@ -132,7 +132,7 @@ namespace jkod
                     AddToDump(strbuffer, address, line);
                 }
             }
-            else
+            else if (line.Length > 0)
             {
                 AddToDump(strbuffer, address, line);
             }
